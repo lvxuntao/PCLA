@@ -6,9 +6,9 @@
 PCLA (Pretrained CARLA Leaderboard Agent) is a versatile framework that allows you to utilize the autonomous agents from the <a href="https://leaderboard.carla.org/leaderboard/">CARLA Leaderboard</a> independently of its core codebase and put them on your vehicle. With PCLA, you can have with your own CARLA API code and then easily deploy your selected autonomous agents to your vehicles. Additionally, PCLA lets you work with the latest version of CARLA, freeing you from the limitations of using a specific version.
 </p>
 
-This repository
-was tested on Linux ubuntu 22 and carla 9.15
-ValueError: An output representation was chosen that was not trained. : unset DIRECT
+<p align="center" style="font-size:20px;">
+**PCLA was tested on Linux Ubuntu 22 and carla 9.15**
+</p>
 
 ## Contents
 
@@ -18,9 +18,7 @@ ValueError: An output representation was chosen that was not trained. : unset DI
 4. [How to Use](#how-to-use)
 5. [Environment Variables](#environment-variables)
 6. [Sample Code](#sample-code)
-7. [Common Mistakes](#common-mistakes)
 8. [Citation](#citation)
-9. [Acknoledgements](#acknoledgements)
 
 ## Setup
 Download and install the <a href="https://carla.readthedocs.io/en/latest/">CARLA simulator</a> from the official website. Based on your preference, you can either use quick installation or build from source.</br>
@@ -126,3 +124,10 @@ A sample code is provided for you to test PCLA. Just go to the PCLA directory an
   python sample.py
 ```
 This sample is in Town02 of CARLA simulator.
+
+## Citation
+If you find PCLA useful, please consider giving it a star &#127775;.
+Please cite the respective pubilished paper:
+```Shell
+  bibtex citation
+```
