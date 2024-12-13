@@ -93,7 +93,7 @@ mp = world.get_map()
 waypoints = mp.generate_waypoints(2)
 routeMaker(waypoints, "route.xml")
 ```
-The other arguments you have to pass to PCLA is the world, the client and the vehicle you want to put the agent on. </br>
+The other arguments you have to pass to PCLA are the world, the client and the vehicle you want to put the agent on. </br>
 To get one action in a frame from the agent and apply it to your vehicle you can call the `pcla.get_action` method. </br>
 Example:
 ```Shell
