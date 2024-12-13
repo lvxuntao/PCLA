@@ -3,11 +3,12 @@
 </p>
 
 <p align="center" style="font-size:20px;">
-PCLA (Pretrained CARLA Leaderboard Agent) is a versatile framework that allows you to utilize the autonomous agents from the <a href="https://leaderboard.carla.org/leaderboard/">CARLA Leaderboard</a> independently of its core codebase and put them on your vehicle. With PCLA, you can have with your own CARLA API code and then easily deploy your selected autonomous agents to your vehicles. Additionally, PCLA lets you work with the latest version of CARLA, freeing you from the limitations of using a specific version.
+PCLA (Pretrained CARLA Leaderboard Agent) is a versatile framework that allows you to utilize the autonomous agents from the <a href="https://leaderboard.carla.org/leaderboard/">CARLA Leaderboard</a> independently of its core codebase and put them on your vehicle. With PCLA, you can have with your own CARLA API code and then easily deploy your selected autonomous agents to your vehicles. Additionally, PCLA lets you work with the latest version of CARLA, freeing you from the limitations of using a specific version.</br>
+Paper available at <a href="#">change this</a>
 </p>
 
 <p align="center" style="font-size:20px;">
-**PCLA was tested on Linux Ubuntu 22 and carla 9.15**
+**PCLA was tested on Linux Ubuntu 22 and CARLA 9.15**
 </p>
 
 ## Contents
@@ -33,13 +34,22 @@ conda activate PCLA
 ## Pre-Trained Weights
 
 Download the pre-trained weights from <a href="https://zenodo.org/records/14446470">Zenodo</a> or directly from <a href="https://zenodo.org/records/14446470/files/pretrained.zip?download=1">here</a> and extract them into the `PCLA/agents/` directory.</br> 
-Ensure that each folder of pre-trained weights, is placed directly next to its respective model's folder.
+Ensure that each folder of pre-trained weights is placed directly next to its respective model's folder. The `agents` folder should look like this.
+```Bash
+├── agents
+   ├── garage
+   ├── garagepretrained
+   ├── interfuser
+   ├── interfuserpretrained
+   ├── neat
+   └── neatpretrained
+```
 
 ## Autonomous Agents
 
 PCLA includes 9 different autonomous agents and 17 distinct training seeds to choose from.
 - **CARLA-garage**
-  - Contains 4 different autonomous agents with 3 training seeds for each agent. To use these agents to need to set some [Environment Variables](#environment-variables).
+  - Contains 4 different autonomous agents with 3 training seeds for each agent. To use these agents you need to set some [Environment Variables](#environment-variables).
     - *garage_lav_#*, replace # with the seed number from 0 to 2.
     - *garage_aim_#*, replace # with the seed number from 0 to 2.
     - *garage_ld_#*, replace # with the seed number from 0 to 2. This is to use their leaderboard agent.
@@ -53,7 +63,7 @@ PCLA includes 9 different autonomous agents and 17 distinct training seeds to ch
       - *neat_aim2ddepth*
   - Repository: [https://github.com/autonomousvision/neat](https://github.com/autonomousvision/neat)
 - **Interfuser**
-  - Contains 1 autonomous agent. To use this agent to need to set an [Environment Variables](#environment-variables).
+  - Contains 1 autonomous agent. To use this agent you need to set an [Environment Variables](#environment-variables).
      -*if_if*
   - Repository: [https://github.com/opendilab/InterFuser](https://github.com/opendilab/InterFuser)
 
@@ -83,7 +93,7 @@ mp = world.get_map()
 waypoints = mp.generate_waypoints(2)
 routeMaker(waypoints, "route.xml")
 ```
-The other arguments you have to pass to PCLA is the world, client and the vehicle you want to put the agent on. </br>
+The other arguments you have to pass to PCLA is the world, the client and the vehicle you want to put the agent on. </br>
 To get one action in a frame from the agent and apply it to your vehicle you can call the `pcla.get_action` method. </br>
 Example:
 ```Shell
@@ -91,8 +101,8 @@ ego_action = pcla.get_action()
 vehicle.apply_control(ego_action)
 ```
 ### Environment Variables
-Carla_garage and Interfuser requires you to set an environemnt variable before using their agents.
-Environment variables for each agent is:
+Carla_garage and Interfuser require you to set an environment variable before using their agents.
+Environment variables for each agent are:
 - **garage_lav_#**
   ```Shell
   export STOP_CONTROL=1
