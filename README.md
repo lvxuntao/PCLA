@@ -126,8 +126,8 @@ python sample.py
 This sample is in Town02 of CARLA simulator.
 
 ## Citation
-If you find PCLA useful, please consider giving it a star &#127775;.
-Please cite the respective pubilished paper:
+If you find PCLA useful, please consider giving it a star &#127775;,
+and cite the published paper:
 ```Shell
 bibtex citation
 ```
