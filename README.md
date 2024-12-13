@@ -32,7 +32,7 @@ conda activate PCLA
 
 ## Pre-Trained Weights
 
-Download the pre-trained weights from ????[insert link here] and extract them into the `PCLA/agents/` directory.</br> 
+Download the pre-trained weights from <a href="https://zenodo.org/records/14446470">Zenodo</a> or directly from <a href="https://zenodo.org/records/14446470/files/pretrained.zip?download=1">here</a> and extract them into the `PCLA/agents/` directory.</br> 
 Ensure that each folder of pre-trained weights, is placed directly next to its respective model's folder.
 
 ## Autonomous Agents
