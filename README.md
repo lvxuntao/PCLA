@@ -115,13 +115,13 @@ Environment variables for each agent is:
   ```
 Remember to unset a variable before using another agent.
 ```Shell
-  unset DIRECT
+unset DIRECT
 ```
 
 ## Sample Code
 A sample code is provided for you to test PCLA. Just go to the PCLA directory and run:
 ```Shell
-  python sample.py
+python sample.py
 ```
 This sample is in Town02 of CARLA simulator.
 
@@ -129,5 +129,5 @@ This sample is in Town02 of CARLA simulator.
 If you find PCLA useful, please consider giving it a star &#127775;.
 Please cite the respective pubilished paper:
 ```Shell
-  bibtex citation
+bibtex citation
 ```
