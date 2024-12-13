@@ -31,7 +31,7 @@ def print_guide():
 
 def give_path(name):
     nameArray = name.split("_") # Split the name by _
-    if(nameArray[0] != "tfpp"): # Handling the numbers from the garage agent name
+    if(nameArray[0] != "garage"): # Handling the numbers from the garage agent name
         nameArray.append("")
     # open json file
     with open('models.json', 'r') as file:
