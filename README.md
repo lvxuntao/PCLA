@@ -92,3 +92,37 @@ Example:
 ego_action = pcla.get_action()
 vehicle.apply_control(ego_action)
 ```
+### Environment Variables
+Carla_garage and Interfuser requires you to set an environemnt variable before using their agents.
+Environment variables for each agent is:
+- **garage_lav_#**
+  ```Shell
+  export STOP_CONTROL=1
+  ```
+- **garage_aim_#**
+  ```Shell
+  export DIRECT=0
+  ```
+- **garage_ld_#**
+  ```Shell
+  export DIRECT=0
+  ```
+- **garage_l6_#**
+  ```Shell
+  export UNCERTAINTY_THRESHOLD=033
+  ```
+- **if_if**
+  ```Shell
+  export ROUTES=path_to_route.xml
+  ```
+Remember to unset a variable before using another agent.
+```Shell
+  unset DIRECT
+```
+
+## Sample Code
+A sample code is provided for you to test PCLA. Just go to the PCLA directory and run:
+```Shell
+  python sample.py
+```
+This sample is in Town02 of CARLA simulator.
