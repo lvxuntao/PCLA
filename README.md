@@ -113,6 +113,7 @@ Environment variables for each agent is:
   ```Shell
   export ROUTES=path_to_route.xml
   ```
+  The path to the same XML route file you used in PCLA
 Remember to unset a variable before using another agent.
 ```Shell
 unset DIRECT
