@@ -68,12 +68,16 @@ PCLA includes 9 different autonomous agents and 17 distinct training seeds to ch
   - Repository: [https://github.com/opendilab/InterFuser](https://github.com/opendilab/InterFuser)
 
 ## How to Use
-
+First, run CARLA. You don't need any special arguments.
+```Shell
+./CarlaUE4.sh
+```
+Then open another terminal and run your code.</br>
 To use PCLA, simply import it and use the PCLA class to define an autonomous vehicle with your chosen autonomous agent.
 ```Shell
 from PCLA import PCLA
 
-agent = "garage_l6_2"
+agent = "neat_neat"
 route = "./sampleRoute.xml"
 pcla = PCLA(agent, vehicle, route, world, client)
 
@@ -93,7 +97,7 @@ mp = world.get_map()
 waypoints = mp.generate_waypoints(2)
 routeMaker(waypoints, "route.xml")
 ```
-The other arguments you have to pass to PCLA are the world, the client and the vehicle you want to put the agent on. </br>
+The other arguments you have to pass to PCLA are the world, the client, and the vehicle you want to put the agent on. </br>
 To get one action in a frame from the agent and apply it to your vehicle you can call the `pcla.get_action` method. </br>
 Example:
 ```Shell
@@ -135,7 +139,7 @@ A sample code is provided for you to test PCLA. Just go to the PCLA directory an
 ```Shell
 python sample.py
 ```
-This sample is in Town02 of CARLA simulator.
+This sample is in Town02 of the CARLA simulator.
 
 ## Citation
 If you find PCLA useful, please consider giving it a star &#127775;,
