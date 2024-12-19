@@ -3,12 +3,12 @@
 </p>
 
 <p align="center" style="font-size:20px;">
-PCLA (Pretrained CARLA Leaderboard Agent) is a versatile framework that allows you to utilize the autonomous agents from the <a href="https://leaderboard.carla.org/leaderboard/">CARLA Leaderboard</a> independently of its core codebase and put them on your vehicle. With PCLA, you can have with your own CARLA API code and then easily deploy your selected autonomous agents to your vehicles. Additionally, PCLA lets you work with the latest version of CARLA, freeing you from the limitations of using a specific version.</br>
+PCLA (Pretrained CARLA Leaderboard Agent) is a versatile framework that allows you to utilize the autonomous agents from the <a href="https://leaderboard.carla.org/leaderboard/">CARLA Leaderboard</a> independently of its core codebase and put them on your vehicle. With PCLA, you can have your own CARLA API code and then easily deploy your selected autonomous agents to your vehicles. Additionally, PCLA lets you work with the latest version of CARLA, freeing you from the limitations of using a specific version.</br>
 Paper available at <a href="#">change this</a>
 </p>
 
 <p align="center" style="font-size:20px;">
-**PCLA was tested on Linux Ubuntu 22 and CARLA 9.15**
+**PCLA was tested on Linux Ubuntu 22 and CARLA 9.15 Unreal Engine 4**
 </p>
 
 ## Contents
