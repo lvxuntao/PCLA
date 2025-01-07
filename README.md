@@ -19,6 +19,7 @@ Paper available at <a href="#">change this</a>
 4. [How to Use](#how-to-use)
 5. [Environment Variables](#environment-variables)
 6. [Sample Code](#sample-code)
+7. [FAQ](#FAQ)
 8. [Citation](#citation)
 
 ## Setup
@@ -140,6 +141,9 @@ A sample code is provided for you to test PCLA. Just go to the PCLA directory an
 python sample.py
 ```
 This sample is in Town02 of the CARLA simulator.
+
+## FAQ
+Frequently asked questions and possible issues are solved in <a href="https://github.com/MasoudJTehrani/PCLA/issues?q=is%3Aissue+is%3Aclosed">the issues section</a>.
 
 ## Citation
 If you find PCLA useful, please consider giving it a star &#127775;,
