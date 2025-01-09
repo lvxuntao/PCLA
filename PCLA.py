@@ -1,3 +1,9 @@
+# Copyright (c) 2025 Testing Automated group (TAU) at the università della svizzera 
+# italiana (USI) Switzerland
+#
+# This work is licensed under the terms of the MIT license.
+# For a copy, see <https://opensource.org/licenses/MIT>.
+
 import importlib
 import os
 import sys
