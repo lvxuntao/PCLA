@@ -11,9 +11,12 @@ Paper available at <a href="#">change this</a>
 **PCLA was tested on Linux Ubuntu 22 and CARLA 9.15 Unreal Engine 4**
 </p>
 
-<p align="center" style="font-size:20px;">
+<p align="center">
 A video tutorial on how to use PCLA is available below. </br>
-[![PCLA Tutorial Video](https://img.youtube.com/vi/QyaMK6vclBg/2.jpg)](https://www.youtube.com/watch?v=QyaMK6vclBg)
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=QyaMK6vclBg"><img src="https://img.youtube.com/vi/QyaMK6vclBg/0.jpg" alt="PCLA Video Tutorial"></a>
+</div>
+
 </p>
 
 
