@@ -48,6 +48,10 @@ cd PCLA
 conda env create -f environment.yml
 conda activate PCLA
 ```
+Alternatively, you can use the `requirements.txt` file to install the required libraries by using:</br>
+```Shell
+pip install -r requirements.txt
+```
 
 ## Pre-Trained Weights
 
