@@ -90,7 +90,7 @@ PCLA includes 9 different autonomous agents and 17 distinct training seeds to ch
   - Repository: [https://github.com/autonomousvision/neat](https://github.com/autonomousvision/neat)
 - **Interfuser**
   - Contains 1 autonomous agent. To use this agent you need to set an [Environment Variables](#environment-variables).
-     -*if_if*
+     - *if_if*
   - Repository: [https://github.com/opendilab/InterFuser](https://github.com/opendilab/InterFuser)
 
 ## How to Use
