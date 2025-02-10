@@ -40,7 +40,6 @@ torch.backends.cudnn.benchmark = False
 torch.backends.cudnn.deterministic = False
 torch.backends.cudnn.allow_tf32 = True
 
-
 # Leaderboard function that selects the class used as agent.
 def get_entry_point():
   return 'SensorAgent'

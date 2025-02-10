@@ -1,6 +1,5 @@
 import os
 
-
 class GlobalConfig:
     """base architecture configurations"""
 
@@ -22,7 +21,11 @@ class GlobalConfig:
 
     max_speed = 5
     collision_buffer = [2.5, 1.2]
-    model_path = "./agents/interfuserpretrained/interfuser.pth.tar"
+
+    # Get the directory of the current file (interfuser_config.py)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    model_path = os.path.join(current_dir, "../interfuserpretrained/interfuser.pth.tar")
+    
     momentum = 0
     skip_frames = 1
     detect_threshold = 0.04

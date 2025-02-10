@@ -7,6 +7,13 @@
 import importlib
 import os
 import sys
+# Get the directory of the current file (PCLA.py)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Add the directory containing leaderboardcodes to the Python path
+sys.path.append(current_dir)
+
+import sys
 import carla
 import json
 from leaderboardcodes.watchdog import Watchdog
@@ -14,6 +21,8 @@ from leaderboardcodes.timer import GameTime
 from leaderboardcodes.route_indexer import RouteIndexer
 from leaderboardcodes.route_manipulation import interpolate_trajectory
 from leaderboardcodes.sensor_interface import CallBack, OpenDriveMapReader, SpeedometerReader
+from leaderboardcodes.global_route_planner import GlobalRoutePlanner
+from leaderboardcodes.global_route_planner_dao import GlobalRoutePlannerDAO
 
 def print_guide():
     print("""
@@ -34,33 +43,32 @@ def print_guide():
                 export ROUTES=path_to_route.xml
           -------------------------------
           """)
+def location_to_waypoint(client, starting_location, ending_location, draw=False):
+    # This function is used to convert two generate waypoints from two locations
+    world = client.get_world()
+    amap = world.get_map()
+    sampling_resolution = 2
+    dao = GlobalRoutePlannerDAO(amap, sampling_resolution)
+    grp = GlobalRoutePlanner(dao)
+    grp.setup()
+    w1 = grp.trace_route(starting_location, ending_location)
+    # draw the route on the carla simulator
+    if(draw):
+        i = 0
+        for w in w1:
+            if i % 10 == 0:
+                world.debug.draw_string(w[0].transform.location, 'O', draw_shadow=False,
+                color=carla.Color(r=255, g=0, b=0), life_time=60.0,
+                persistent_lines=True)
+            else:
+                world.debug.draw_string(w[0].transform.location, 'O', draw_shadow=False,
+                color = carla.Color(r=0, g=0, b=255), life_time=60.0,
+                persistent_lines=True)
+                i += 1
+    
+    return [wp[0] for wp in w1]
 
-def give_path(name):
-    nameArray = name.split("_") # Split the name by _
-    if(nameArray[0] != "garage"): # Handling the numbers from the garage agent name
-        nameArray.append("")
-    # open json file
-    with open('models.json', 'r') as file:
-        models = json.load(file)
-
-        # check environment variables
-        envs = models[nameArray[0]][nameArray[1]]["envs"]
-        for var in envs:
-            if(var not in os.environ):
-                raise Exception(f"Please export the related environment variables\
-                                and unset previous variables\nRequired variables: {envs}")
-            
-        # get agent and it's config path
-        try:
-            agent = models[nameArray[0]][nameArray[1]]["agent"]
-            config = models[nameArray[0]][nameArray[1]]["config"] + nameArray[2] # Handling the numbers of agent names for tfpp
-        except:
-            print("couldn't find your model")
-            print_guide()
-
-    return agent, config
-
-def routeMaker(waypoints, savePath="route.xml"):
+def route_maker(waypoints, savePath="route.xml"):
     # This function gets a list of carla waypoints and convert it into leaderboard route
     # This way you can use the route in PCLA
     from xml.dom import minidom 
@@ -96,8 +104,35 @@ def routeMaker(waypoints, savePath="route.xml"):
 
     return
 
+def give_path(name):
+    nameArray = name.split("_") # Split the name by _
+    if(nameArray[0] != "garage"): # Handling the numbers from the garage agent name
+        nameArray.append("")
+   
+    # open json file
+    with open(current_dir + "/models.json", 'r') as file:
+        models = json.load(file)
+
+        # check environment variables
+        envs = models[nameArray[0]][nameArray[1]]["envs"]
+        for var in envs:
+            if(var not in os.environ):
+                raise Exception(f"Please export the related environment variables\
+                                and unset previous variables\nRequired variables: {envs}")
+            
+        # get agent and it's config path
+        try:
+            agent = models[nameArray[0]][nameArray[1]]["agent"]
+            config = models[nameArray[0]][nameArray[1]]["config"] + nameArray[2] # Handling the numbers of agent names for tfpp
+        except:
+            print("couldn't find your model")
+            print_guide()
+
+    return current_dir + agent, current_dir + config
+
+
 class PCLA():
-    def __init__(self, agent, vehicle, route, world, client):
+    def __init__(self, agent, vehicle, route, client):
         self.client = None
         self.world = None
         self.vehicle = None
@@ -106,11 +141,11 @@ class PCLA():
         self.agent_instance = None
         self.routePath = None
         self._watchdog = None
-        self.set(agent, vehicle, route, world, client)
+        self.set(agent, vehicle, route, client)
     
-    def set(self, agent, vehicle, route, world, client):
+    def set(self, agent, vehicle, route, client):
         self.client = client
-        self.world = world
+        self.world = client.get_world()
         self.vehicle = vehicle
         self.routePath = route
         self._watchdog = Watchdog(10)
@@ -134,7 +169,7 @@ class PCLA():
 
     def setup_route(self):
         
-        scenarios = "./leaderboardcodes/no_scenarios.json"
+        scenarios = current_dir + "/leaderboardcodes/no_scenarios.json"
         route_indexer = RouteIndexer(self.routePath, scenarios, 1)
         config = route_indexer.next()
         
