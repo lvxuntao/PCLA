@@ -52,7 +52,10 @@ Alternatively, you can use the `requirements.txt` file to install the required l
 ```Shell
 pip install -r requirements.txt
 ```
-Please make sure CUDA is installed. <a href="https://www.gpu-mart.com/blog/install-nvidia-cuda-11-on-ubuntu">Tutorial for installing CUDA on ubuntu<a>.
+Please make sure CUDA and PyTorch are installed.</br>
+<a href="https://www.gpu-mart.com/blog/install-nvidia-cuda-11-on-ubuntu">Tutorial for installing CUDA on ubuntu<a></br>
+<a href="https://pytorch.org/get-started/locally/">Tutorial for PyTorch<a>
+
 
 ## Pre-Trained Weights
 
