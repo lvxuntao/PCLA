@@ -52,7 +52,7 @@ def main():
 
         agent = "neat_neat"
         route = "./sampleRoute.xml"
-        pcla = PCLA(agent, vehicle, route, world, client)
+        pcla = PCLA(agent, vehicle, route, client)
         
         print('Spawned the vehicle with model =', agent,', press Ctrl+C to exit.\n')
         while True:
