@@ -105,7 +105,7 @@ from PCLA import PCLA
 
 agent = "neat_neat"
 route = "./sampleRoute.xml"
-pcla = PCLA(agent, vehicle, route, world, client)
+pcla = PCLA(agent, vehicle, route, client)
 
 ego_action = pcla.get_action()
 vehicle.apply_control(ego_action)
