@@ -45,7 +45,7 @@ def print_guide():
           -------------------------------
           """)
 def location_to_waypoint(client, starting_location, ending_location, draw=False):
-    # This function is used to convert two generate waypoints from two locations
+    # This function is used to generate waypoints between two locations
     world = client.get_world()
     amap = world.get_map()
     sampling_resolution = 2
