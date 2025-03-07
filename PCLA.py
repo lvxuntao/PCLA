@@ -15,6 +15,7 @@ sys.path.append(current_dir)
 
 import sys
 import carla
+import traceback
 import json
 from leaderboardcodes.watchdog import Watchdog
 from leaderboardcodes.timer import GameTime
@@ -280,4 +281,37 @@ class PCLA():
         if timestamp:
             GameTime.on_carla_tick(timestamp)
             return(self.agent_instance())
+    
+    def cleanup(self):
+        """
+        Remove and destroy all actors
+        """
+        # Cleanup the vehicle
+        self.vehicle.destroy()
+        self.client = None
+        self.vehicle = None
+        self.agentPath = None
+        self.configPath = None
+        self.routePath = None
+
+        if self._watchdog:
+            self._watchdog.stop()
+
+        try:
+            if self.agent_instance:
+                self.agent_instance.destroy()
+                self.agent_instance = None
+        except Exception as e:
+            print("\n\033[91mFailed to stop the agent:")
+            print(f"\n{traceback.format_exc()}\033[0m")
+
+        # Make sure no sensors are left streaming
+        alive_sensors = self.world.get_actors().filter('*sensor*')
+        for sensor in alive_sensors:
+            if sensor.is_listening():
+                sensor.stop()
+            sensor.destroy()
+        
+
+        self.world = None
             
