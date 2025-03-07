@@ -297,6 +297,7 @@ class PCLA():
         if self._watchdog:
             self._watchdog.stop()
 
+        # Cleanup the agent
         try:
             if self.agent_instance:
                 self.agent_instance.destroy()
