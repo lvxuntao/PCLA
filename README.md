@@ -129,15 +129,15 @@ pcla.cleanup()
 You can use PCLA to generate waypoints between two locations or generate routes usable for PCLA.
 Example of generating XML route from a list of <a href="https://carla.readthedocs.io/en/latest/core_map/#waypoints">CARLA waypoints</a>:
 ```Shell
-from PCLA import routeMaker
+from PCLA import route_maker
 
 client = carla.Client('localhost', 2000)
 world = client.get_world()
 mp = world.get_map()
 waypoints = mp.generate_waypoints(2)
-routeMaker(waypoints, "route.xml")  # Returns waypoints usable for PCLA
+route_maker(waypoints, "route.xml")  # Returns waypoints usable for PCLA
 ```
-You can also use the `location_to_waypoint()` method to generate waypoint between two carla locations and then use `routeMaker`. for Example:
+You can also use the `location_to_waypoint()` method to generate waypoints between two carla locations and then use `route_maker`. for Example:
 ```Shell
 from PCLA import location_to_waypoint
 
