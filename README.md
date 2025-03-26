@@ -194,5 +194,10 @@ If you find PCLA useful, please consider giving it a star &#127775;,
 and cite the published paper:
 https://arxiv.org/abs/2503.09385
 ```Shell
-bibtex citation
+@article{tehrani2025pcla,
+  title={PCLA: A Framework for Testing Autonomous Agents in the CARLA Simulator},
+  author={Tehrani, Masoud Jamshidiyan and Kim, Jinhan and Tonella, Paolo},
+  journal={arXiv preprint arXiv:2503.09385},
+  year={2025}
+}
 ```
