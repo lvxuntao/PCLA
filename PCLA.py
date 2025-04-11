@@ -44,11 +44,11 @@ def print_guide():
                 export ROUTES=path_to_route.xml
           -------------------------------
           """)
-def location_to_waypoint(client, starting_location, ending_location, draw=False):
+def location_to_waypoint(client, starting_location, ending_location, distance = 2, draw=False):
     # This function is used to generate waypoints between two locations
     world = client.get_world()
     amap = world.get_map()
-    sampling_resolution = 2
+    sampling_resolution = distance # the distance between the waypoints
     dao = GlobalRoutePlannerDAO(amap, sampling_resolution)
     grp = GlobalRoutePlanner(dao)
     grp.setup()
