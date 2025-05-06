@@ -66,8 +66,8 @@ def main():
         world.apply_settings(settings)
 
         # Destroy vehicle
-        print('\ndestroying the vehicle')
-        vehicle.destroy()
+        print('\nCleaning up the vehicle')
+        pcla.cleanup()
         time.sleep(0.5)
 
 if __name__ == '__main__':
