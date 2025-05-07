@@ -11,16 +11,15 @@ PCLA (Pretrained CARLA Leaderboard Agent) is a versatile framework that allows y
 * Provides the next movement action computed by the chosen agent, which can then be utilized in any desired application.
 * Is fully compatible with the latest version of CARLA and independent of the Leaderboard’s specific CARLA version.
 * Includes nine different high-performing ADAs trained with 17 distinct training seeds. 
-</br>
+
 Paper available at <a href="https://arxiv.org/abs/2503.09385">Arxiv</a>. It will be published at the FSE 2025 demonstration track.
+
 </p>
 
 <p align="center">
-**PCLA was tested on Linux Ubuntu 22 and CARLA 9.15 Unreal Engine 4**
-</p>
-
-<p align="center">
-A video tutorial on how to use PCLA is available below. </br>
+<strong>PCLA was tested on Linux Ubuntu 22 and CARLA 9.15 Unreal Engine 4.</strong> </br>
+A video tutorial on how to use PCLA is available below.
+  
 <div align="center">
   <a href="https://www.youtube.com/watch?v=QyaMK6vclBg"><img src="https://img.youtube.com/vi/QyaMK6vclBg/0.jpg" alt="PCLA Video Tutorial"></a>
 </div>
@@ -34,7 +33,7 @@ A video tutorial on how to use PCLA is available below. </br>
 2. [Pre-Trained Weights](#pre-trained-weights)
 3. [Autonomous Agents](#autonomous-agents)
 4. [How to Use](#how-to-use)
-5. [Route Maker](#route-maker)
+5. [Navigation](#navigation)
 6. [Environment Variables](#environment-variables)
 7. [Sample Code](#sample-code)
 8. [FAQ](#FAQ)
@@ -62,7 +61,7 @@ Please make sure CUDA and PyTorch are installed.</br>
 
 Download the pre-trained weights from <a href="https://zenodo.org/records/14446470">Zenodo</a> or directly from <a href="https://zenodo.org/records/14446470/files/pretrained.zip?download=1">here</a> and extract them into the `PCLA/agents/` directory.</br> 
 Ensure that each folder of pre-trained weights is placed directly next to its respective model's folder. The `agents` folder should look like this.
-```Bash
+```bash
 ├── agents
    ├── garage
    ├── garagepretrained
@@ -101,7 +100,7 @@ First, run CARLA. You don't need any special arguments.
 ```
 Then open another terminal and run your code.</br>
 To use PCLA, simply import it and use the PCLA class to define an autonomous vehicle with your chosen autonomous agent.
-```Shell
+```python
 from PCLA import PCLA
 
 agent = "neat_neat"
@@ -113,43 +112,65 @@ vehicle.apply_control(ego_action)
 ```
 In the code above, the agent is your chosen autonomous agent. You can choose your agent from the list of [Autonomous Agents](#autonomous-agents).</br>
 You also need to pass the `route` that you want your vehicle to follow. The route should be in the format of the Leaderboard waypoints as an `XML` file.</br>
-To make it easy, PCLA provides you with a function called `routeMaker()` that gets an array of <a href="https://carla.readthedocs.io/en/latest/core_map/#waypoints">CARLA waypoints</a>, reformats it to a Leaderboard format and save it as an XML file. A tutorial in how to use that is provided in [Route Maker](#route-maker)</br>
+To make it easy, PCLA provides you with a function called `routeMaker()` that gets an array of <a href="https://carla.readthedocs.io/en/latest/core_map/#waypoints">CARLA waypoints</a>, reformats it to a Leaderboard format and save it as an XML file. A tutorial on how to use that is provided in [Navigation](#navigation)</br>
 The other arguments you have to pass to PCLA are the client, and the vehicle you want to put the agent on. </br>
 To get one action in a frame from the agent and apply it to your vehicle you can call the `pcla.get_action` method. </br>
 Example:
-```Shell
+```python
 ego_action = pcla.get_action()
 vehicle.apply_control(ego_action)
 ```
 Finally to destroy and cleanup the vehicle, sensors and the PCLA variables you can call
-```Shell
+```python
 pcla.cleanup()
 ```
-## Route Maker
+## Navigation
 You can use PCLA to generate waypoints between two locations or generate routes usable for PCLA.
-Example of generating XML route from a list of <a href="https://carla.readthedocs.io/en/latest/core_map/#waypoints">CARLA waypoints</a>:
-```Shell
-from PCLA import route_maker
-
-client = carla.Client('localhost', 2000)
-world = client.get_world()
-mp = world.get_map()
-waypoints = mp.generate_waypoints(2)
-route_maker(waypoints, "route.xml")  # Returns waypoints usable for PCLA
+If you want to find locations to navigate your vehicle through the city, you can use the `spawn_points.py` file to see all the spawn points and their associated number.
+```shell
+python spawn_points.py
 ```
-You can also use the `location_to_waypoint()` method to generate waypoints between two carla locations and then use `route_maker`. for Example:
-```Shell
+
+<hr />
+
+You can then use the `location_to_waypoint()` method to generate waypoints between two carla locations. For example:
+```python
 from PCLA import location_to_waypoint
 
-vehicle_spawn_points = world.get_map().get_spawn_points() # Random locations based on carla spawn points
-startLoc = vehicle_spawn_points[31]
-endLoc = vehicle_spawn_points[42]
-waypoints = location_to_waypoint(client, startLoc, endLoc)  # Returns waypoints between two locations
-# Pass the waypoints to PCLA to make it usable in PCLA
+vehicle_spawn_points = world.get_map().get_spawn_points() # Carla spawn points
+startLoc = vehicle_spawn_points[31].location # Start location
+endLoc = vehicle_spawn_points[42].location # End location
+waypoints = location_to_waypoint(client, startLoc, endLoc) # Returns waypoints between two locations
+```
+
+<hr />
+
+Then pass the waypoints to `route_maker()` to make the XML file usable for PCLA.
+```python
 PCLA.route_maker(waypoints)
 ```
 
-### Environment Variables
+<hr />
+
+All together:
+Example of generating XML route from a list of <a href="https://carla.readthedocs.io/en/latest/core_map/#waypoints">CARLA waypoints</a>
+extracted from two <a href="https://carla.readthedocs.io/en/latest/python_api/#carlalocation">CARLA locations</a>:
+
+```python
+from PCLA import route_maker
+from PCLA import location_to_waypoint
+
+client = carla.Client('localhost', 2000)
+world = client.get_world()
+
+vehicle_spawn_points = world.get_map().get_spawn_points() # Carla spawn points
+startLoc = vehicle_spawn_points[31].location # Start location
+endLoc = vehicle_spawn_points[42].location # End location
+waypoints = location_to_waypoint(client, startLoc, endLoc)  # Returns waypoints between two locations
+route_maker(waypoints, "route.xml")  # Returns waypoints usable for PCLA
+```
+
+## Environment Variables
 Carla_garage and Interfuser require you to set an environment variable before using their agents.
 Environment variables for each agent are:
 - **garage_lav_#**
@@ -184,7 +205,9 @@ A sample code is provided for you to test PCLA. Just go to the PCLA directory an
 ```Shell
 python sample.py
 ```
-This sample is in Town02 of the CARLA simulator.
+This sample is in Town02 of the CARLA simulator. 
+
+***Attention: you may need to change the vehicle spawn point's number on line 43 to something else based on your CARLA version.***
 
 ## FAQ
 Frequently asked questions and possible issues are solved in <a href="https://github.com/MasoudJTehrani/PCLA/issues?q=is%3Aissue+is%3Aclosed">the issues section</a>.
@@ -193,7 +216,7 @@ Frequently asked questions and possible issues are solved in <a href="https://gi
 If you find PCLA useful, please consider giving it a star &#127775;,
 and cite the published paper:
 https://arxiv.org/abs/2503.09385
-```Shell
+```bibtex
 @article{tehrani2025pcla,
   title={PCLA: A Framework for Testing Autonomous Agents in the CARLA Simulator},
   author={Tehrani, Masoud Jamshidiyan and Kim, Jinhan and Tonella, Paolo},
