@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-PCLA (Pretrained CARLA Leaderboard Agent) is a versatile framework that allows you to utilize the autonomous agents from the <a href="https://leaderboard.carla.org/leaderboard/" target="_blank">CARLA Leaderboard</a> independently of its core codebase and put them on your vehicle. </br>
+PCLA (Pretrained CARLA Leaderboard Agent) is a versatile framework that allows you to utilize the autonomous agents from the <a href="https://leaderboard.carla.org/leaderboard/" target="_blank" rel="noopener noreferrer">CARLA Leaderboard</a> independently of its core codebase and put them on your vehicle. </br>
 
 * PCLA provides a clear method to deploy ADAs onto a vehicle without relying on the Leaderboard codebase.
 * Enables easy switching between Autonomous Driving Agents (ADAs) without requiring changes to CARLA versions or programming environments.
@@ -12,7 +12,7 @@ PCLA (Pretrained CARLA Leaderboard Agent) is a versatile framework that allows y
 * Is fully compatible with the latest version of CARLA and independent of the Leaderboard’s specific CARLA version.
 * Includes nine different high-performing ADAs trained with 17 distinct training seeds. 
 
-Paper available at <a href="https://arxiv.org/abs/2503.09385" target="_blank">Arxiv</a>. It will be published at the FSE 2025 demonstration track.
+Paper available at <a href="https://arxiv.org/abs/2503.09385" target="_blank" rel="noopener noreferrer">Arxiv</a>. It will be published at the FSE 2025 demonstration track.
 
 </p>
 
