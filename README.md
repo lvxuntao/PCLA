@@ -213,10 +213,10 @@ This sample is in Town02 of the CARLA simulator.
 
 ## FAQ
 Frequently asked questions and possible issues are solved in <a href="https://github.com/MasoudJTehrani/PCLA/issues?q=is%3Aissue+is%3Aclosed" target="_blank">the issues section</a>.
+If you have a request for a new agent, feel free to ask me.
 
 ## Citation
-If you find PCLA useful, please consider giving it a star &#127775;,
-and cite the published paper:
+If you find PCLA useful, please consider giving it a star &#127775;, and cite the published paper:
 https://arxiv.org/abs/2503.09385
 ```bibtex
 @article{tehrani2025pcla,
