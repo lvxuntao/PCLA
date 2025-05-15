@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-PCLA (Pretrained CARLA Leaderboard Agent) is a versatile framework that allows you to utilize the autonomous agents from the <a href="https://leaderboard.carla.org/leaderboard/">CARLA Leaderboard</a> independently of its core codebase and put them on your vehicle. </br>
+PCLA (Pretrained CARLA Leaderboard Agent) is a versatile framework that allows you to utilize the autonomous agents from the <a href="https://leaderboard.carla.org/leaderboard/" target="_blank">CARLA Leaderboard</a> independently of its core codebase and put them on your vehicle. </br>
 
 * PCLA provides a clear method to deploy ADAs onto a vehicle without relying on the Leaderboard codebase.
 * Enables easy switching between Autonomous Driving Agents (ADAs) without requiring changes to CARLA versions or programming environments.
@@ -12,7 +12,7 @@ PCLA (Pretrained CARLA Leaderboard Agent) is a versatile framework that allows y
 * Is fully compatible with the latest version of CARLA and independent of the Leaderboard’s specific CARLA version.
 * Includes nine different high-performing ADAs trained with 17 distinct training seeds. 
 
-Paper available at <a href="https://arxiv.org/abs/2503.09385">Arxiv</a>. It will be published at the FSE 2025 demonstration track.
+Paper available at <a href="https://arxiv.org/abs/2503.09385" target="_blank">Arxiv</a>. It will be published at the FSE 2025 demonstration track.
 
 </p>
 
@@ -40,7 +40,7 @@ A video tutorial on how to use PCLA is available below.
 9. [Citation](#citation)
 
 ## Setup
-Download and install the <a href="https://carla.readthedocs.io/en/latest/">CARLA simulator</a> from the official website. Based on your preference, you can either use quick installation or build from source.</br>
+Download and install the <a href="https://carla.readthedocs.io/en/latest/" target="_blank">CARLA simulator</a> from the official website. Based on your preference, you can either use quick installation or build from source.</br>
 Clone the repository and build the conda environment:
 ```Shell
 git clone https://github.com/MasoudJTehrani/PCLA
@@ -53,44 +53,46 @@ Alternatively, you can use the `requirements.txt` file to install the required l
 pip install -r requirements.txt
 ```
 Please make sure CUDA and PyTorch are installed.</br>
-<a href="https://www.gpu-mart.com/blog/install-nvidia-cuda-11-on-ubuntu">Tutorial for installing CUDA on ubuntu<a></br>
-<a href="https://pytorch.org/get-started/locally/">Tutorial for PyTorch<a>
+<a href="https://www.gpu-mart.com/blog/install-nvidia-cuda-11-on-ubuntu" target="_blank">Tutorial for installing CUDA on ubuntu<a></br>
+<a href="https://pytorch.org/get-started/locally/" target="_blank">Tutorial for PyTorch<a>
 
 
 ## Pre-Trained Weights
 
-Download the pre-trained weights from <a href="https://zenodo.org/records/14446470">Zenodo</a> or directly from <a href="https://zenodo.org/records/14446470/files/pretrained.zip?download=1">here</a> and extract them into the `PCLA/agents/` directory.</br> 
+Download the pre-trained weights from <a href="https://zenodo.org/records/14446470" target="_blank">Zenodo</a> or directly from <a href="https://zenodo.org/records/14446470/files/pretrained.zip?download=1">here</a> and extract them into the `PCLA/agents/` directory.</br> 
 Ensure that each folder of pre-trained weights is placed directly next to its respective model's folder. The `agents` folder should look like this.
 ```bash
 ├── agents
-   ├── garage
-   ├── garagepretrained
+   ├── transfuserpp
+   ├── transfuserppPretrained
    ├── interfuser
-   ├── interfuserpretrained
+   ├── interfuserPretrained
    ├── neat
-   └── neatpretrained
+   └── neatPretrained
 ```
 
 ## Autonomous Agents
 
 PCLA includes 9 different autonomous agents and 17 distinct training seeds to choose from.
-- **CARLA-garage**
-  - Contains 4 different autonomous agents with 3 training seeds for each agent. To use these agents you need to set some [Environment Variables](#environment-variables).
-    - *garage_lav_#*, replace # with the seed number from 0 to 2.
-    - *garage_aim_#*, replace # with the seed number from 0 to 2.
-    - *garage_ld_#*, replace # with the seed number from 0 to 2. This is to use their leaderboard agent.
-    - *garage_l6_#*, replace # with the seed number from 0 to 2. This is to use their longest6 agent.
+- **Transfuser++**
+  - Contains 4 different autonomous agents of Transfuser++ with 3 training seeds for each agent. To use these agents you need to set some [Environment Variables](#environment-variables).
+    - **tfpp_l6_#** : Best performing Transfuser++ agent. Second place at <a href="https://github.com/autonomousvision/carla_garage/blob/leaderboard_2/assets/CVPR_Challenge_2024.png" target="_blank">CARLA Leaderboard 2 </a>(Tuebingen_AI team)
+    - **tfpp_lav_#** : Transfuser++ but it's not trained on Town02 on Town05.
+    - **tfpp_wp_#** : Transfuser++ WP from their paper's appendix.
+    - **tfpp_aim_#** : Reproduction of the <a href="https://openaccess.thecvf.com/content/CVPR2021/html/Prakash_Multi-Modal_Fusion_Transformer_for_End-to-End_Autonomous_Driving_CVPR_2021_paper.html" target="_blank">AIM </a>method, explained in their paper's appendix.
+
+  - Replace # with the seed number from 0 to 2.
   - Repository: [https://github.com/autonomousvision/carla_garage](https://github.com/autonomousvision/carla_garage)
 - **Neat**
-  - Contains 4 different autonomous agents.
-      - *neat_neat*
-      - *neat_aimbev*
-      - *neat_aim2dsem*
-      - *neat_aim2ddepth*
+  - Contains 4 different autonomous agents. No environment variables are needed for these agents.
+      - **neat_neat**
+      - **neat_aimbev**
+      - **neat_aim2dsem**
+      - **neat_aim2ddepth**
   - Repository: [https://github.com/autonomousvision/neat](https://github.com/autonomousvision/neat)
 - **Interfuser**
   - Contains 1 autonomous agent. To use this agent you need to set an [Environment Variables](#environment-variables).
-     - *if_if*
+     - **if_if**
   - Repository: [https://github.com/opendilab/InterFuser](https://github.com/opendilab/InterFuser)
 
 ## How to Use
@@ -112,7 +114,7 @@ vehicle.apply_control(ego_action)
 ```
 In the code above, the agent is your chosen autonomous agent. You can choose your agent from the list of [Autonomous Agents](#autonomous-agents).</br>
 You also need to pass the `route` that you want your vehicle to follow. The route should be in the format of the Leaderboard waypoints as an `XML` file.</br>
-To make it easy, PCLA provides you with a function called `routeMaker()` that gets an array of <a href="https://carla.readthedocs.io/en/latest/core_map/#waypoints">CARLA waypoints</a>, reformats it to a Leaderboard format and save it as an XML file. A tutorial on how to use that is provided in [Navigation](#navigation)</br>
+To make it easy, PCLA provides you with a function called `routeMaker()` that gets an array of <a href="https://carla.readthedocs.io/en/latest/core_map/#waypoints" target="_blank">CARLA waypoints</a>, reformats it to a Leaderboard format and save it as an XML file. A tutorial on how to use that is provided in [Navigation](#navigation)</br>
 The other arguments you have to pass to PCLA are the client, and the vehicle you want to put the agent on. </br>
 To get one action in a frame from the agent and apply it to your vehicle you can call the `pcla.get_action` method. </br>
 Example:
@@ -153,8 +155,8 @@ PCLA.route_maker(waypoints)
 <hr />
 
 All together:
-Example of generating XML route from a list of <a href="https://carla.readthedocs.io/en/latest/core_map/#waypoints">CARLA waypoints</a>
-extracted from two <a href="https://carla.readthedocs.io/en/latest/python_api/#carlalocation">CARLA locations</a>:
+Example of generating XML route from a list of <a href="https://carla.readthedocs.io/en/latest/core_map/#waypoints" target="_blank">CARLA waypoints</a>
+extracted from two <a href="https://carla.readthedocs.io/en/latest/python_api/#carlalocation" target="_blank">CARLA locations</a>:
 
 ```python
 from PCLA import route_maker
@@ -210,7 +212,7 @@ This sample is in Town02 of the CARLA simulator.
 ***Attention: you may need to change the vehicle spawn point's number on line 43 to something else based on your CARLA version.***
 
 ## FAQ
-Frequently asked questions and possible issues are solved in <a href="https://github.com/MasoudJTehrani/PCLA/issues?q=is%3Aissue+is%3Aclosed">the issues section</a>.
+Frequently asked questions and possible issues are solved in <a href="https://github.com/MasoudJTehrani/PCLA/issues?q=is%3Aissue+is%3Aclosed" target="_blank">the issues section</a>.
 
 ## Citation
 If you find PCLA useful, please consider giving it a star &#127775;,
