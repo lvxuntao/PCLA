@@ -111,11 +111,11 @@ def give_path(name):
         nameArray.append("")
    
     # open json file
-    with open(current_dir + "/models.json", 'r') as file:
-        models = json.load(file)
+    with open(current_dir + "/agents.json", 'r') as file:
+        agentsFile = json.load(file)
 
         # check environment variables
-        envs = models[nameArray[0]][nameArray[1]]["envs"]
+        envs = agentsFile[nameArray[0]][nameArray[1]]["envs"]
         for var in envs:
             if(var not in os.environ):
                 raise Exception(f"Please export the related environment variables\
@@ -123,8 +123,8 @@ def give_path(name):
             
         # get agent and it's config path
         try:
-            agent = models[nameArray[0]][nameArray[1]]["agent"]
-            config = models[nameArray[0]][nameArray[1]]["config"] + nameArray[2] # Handling the numbers of agent names for tfpp
+            agent = agentsFile[nameArray[0]][nameArray[1]]["agent"]
+            config = agentsFile[nameArray[0]][nameArray[1]]["config"] + nameArray[2] # Handling the numbers of agent names for tfpp
         except:
             print("couldn't find your model")
             print_guide()

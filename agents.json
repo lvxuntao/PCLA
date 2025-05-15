@@ -1,0 +1,53 @@
+{
+    "tfpp":{
+        "lav": {
+            "agent": "/agents/transfuserpp/sensor_agent.py",
+            "config": "/agents/transfuserppPretrained/lav/tfpp_02_05_withheld_",
+            "envs": ["STOP_CONTROL"]
+        },
+        "aim": {
+            "agent": "/agents/transfuserpp/sensor_agent.py",
+            "config": "/agents/transfuserppPretrained/lav/aim_02_05_withheld_",
+            "envs": ["DIRECT"]
+        },
+        "wp": {
+            "agent": "/agents/transfuserpp/sensor_agent.py",
+            "config": "/agents/transfuserppPretrained/leaderboard/tfpp_wp_all_",
+            "envs": ["DIRECT"]
+        },
+        "l6": {
+            "agent": "/agents/transfuserpp/sensor_agent.py",
+            "config": "/agents/transfuserppPretrained/longest6/tfpp_all_",
+            "envs": ["UNCERTAINTY_THRESHOLD"]
+        }
+    },
+    "neat": {
+        "neat": {
+            "agent": "/agents/neat/neat_agent.py",
+            "config": "/agents/neatPretrained/neat",
+            "envs": []
+        },
+        "aimbev": {
+            "agent": "/agents/neat/aim_mt_bev_agent.py",
+            "config": "/agents/neatPretrained/aim_mt_bev",
+            "envs": []
+        },
+        "aim2dsem": {
+            "agent": "/agents/neat/aim_mt_2d_agent.py",
+            "config": "/agents/neatPretrained/aim_mt_sem",
+            "envs": []
+        },
+        "aim2ddepth": {
+            "agent": "/agents/neat/aim_mt_2d_agent.py",
+            "config": "/agents/neatPretrained/aim_mt_sem_depth",
+            "envs": []
+        }
+    },
+    "if":{
+        "if":{
+            "agent": "/agents/interfuser/interfuser_agent.py",
+            "config": "/agents/interfuser/interfuser_config.py",
+            "envs":["ROUTES"]
+        }
+    }
+}
