@@ -175,6 +175,10 @@ route_maker(waypoints, "route.xml")  # Returns waypoints usable for PCLA
 ## Environment Variables
 Transfuser++ and Interfuser require you to set an environment variable before using their agents.
 Environment variables for each agent are:
+- **tfpp_l6_#**
+  ```Shell
+  export UNCERTAINTY_THRESHOLD=033
+  ```
 - **tfpp_lav_#**
   ```Shell
   export STOP_CONTROL=1
@@ -186,10 +190,6 @@ Environment variables for each agent are:
 - **tfpp_wp_#**
   ```Shell
   export DIRECT=0
-  ```
-- **tfpp_l6_#**
-  ```Shell
-  export UNCERTAINTY_THRESHOLD=033
   ```
 - **if_if**
   ```Shell
