@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-PCLA (Pretrained CARLA Leaderboard Agent) is a versatile framework that allows you to utilize the autonomous agents from the <a href="https://leaderboard.carla.org/leaderboard/" target="_blank" rel="noopener noreferrer">CARLA Leaderboard</a> independently of its core codebase and put them on your vehicle. </br>
+PCLA (Pretrained CARLA Leaderboard Agent) is a versatile framework that allows you to utilize the autonomous agents from the <a href="https://leaderboard.carla.org/leaderboard/">CARLA Leaderboard</a> independently of its core codebase and put them on your vehicle. </br>
 
 * PCLA provides a clear method to deploy ADAs onto a vehicle without relying on the Leaderboard codebase.
 * Enables easy switching between Autonomous Driving Agents (ADAs) without requiring changes to CARLA versions or programming environments.
@@ -12,7 +12,7 @@ PCLA (Pretrained CARLA Leaderboard Agent) is a versatile framework that allows y
 * Is fully compatible with the latest version of CARLA and independent of the Leaderboard’s specific CARLA version.
 * Includes nine different high-performing ADAs trained with 17 distinct training seeds. 
 
-Paper available at <a href="https://arxiv.org/abs/2503.09385" target="_blank" rel="noopener noreferrer">Arxiv</a>. It will be published at the FSE 2025 demonstration track.
+Paper available at <a href="https://arxiv.org/abs/2503.09385">Arxiv</a>. It will be published at the FSE 2025 demonstration track.
 
 </p>
 
@@ -40,7 +40,7 @@ A video tutorial on how to use PCLA is available below.
 9. [Citation](#citation)
 
 ## Setup
-Download and install the <a href="https://carla.readthedocs.io/en/latest/" target="_blank">CARLA simulator</a> from the official website. Based on your preference, you can either use quick installation or build from source.</br>
+Download and install the <a href="https://carla.readthedocs.io/en/latest/">CARLA simulator</a> from the official website. Based on your preference, you can either use quick installation or build from source.</br>
 Clone the repository and build the conda environment:
 ```Shell
 git clone https://github.com/MasoudJTehrani/PCLA
@@ -53,13 +53,13 @@ Alternatively, you can use the `requirements.txt` file to install the required l
 pip install -r requirements.txt
 ```
 Please make sure CUDA and PyTorch are installed.</br>
-<a href="https://www.gpu-mart.com/blog/install-nvidia-cuda-11-on-ubuntu" target="_blank">Tutorial for installing CUDA on ubuntu<a></br>
-<a href="https://pytorch.org/get-started/locally/" target="_blank">Tutorial for PyTorch<a>
+<a href="https://www.gpu-mart.com/blog/install-nvidia-cuda-11-on-ubuntu">Tutorial for installing CUDA on ubuntu<a></br>
+<a href="https://pytorch.org/get-started/locally/">Tutorial for PyTorch<a>
 
 
 ## Pre-Trained Weights
 
-Download the pre-trained weights from <a href="https://zenodo.org/records/14446470" target="_blank">Zenodo</a> or directly from <a href="https://zenodo.org/records/14446470/files/pretrained.zip?download=1">here</a> and extract them into the `PCLA/agents/` directory.</br> 
+Download the pre-trained weights from <a href="https://zenodo.org/records/15422537">Zenodo</a> or directly from <a href="https://zenodo.org/records/15422537/files/pretrained.zip?download=1">here</a> and extract them into the `PCLA/agents/` directory.</br> 
 Ensure that each folder of pre-trained weights is placed directly next to its respective model's folder. The `agents` folder should look like this.
 ```bash
 ├── agents
