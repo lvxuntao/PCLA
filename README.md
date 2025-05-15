@@ -173,21 +173,21 @@ route_maker(waypoints, "route.xml")  # Returns waypoints usable for PCLA
 ```
 
 ## Environment Variables
-Carla_garage and Interfuser require you to set an environment variable before using their agents.
+Transfuser++ and Interfuser require you to set an environment variable before using their agents.
 Environment variables for each agent are:
-- **garage_lav_#**
+- **tfpp_lav_#**
   ```Shell
   export STOP_CONTROL=1
   ```
-- **garage_aim_#**
+- **tfpp_aim_#**
   ```Shell
   export DIRECT=0
   ```
-- **garage_ld_#**
+- **tfpp_wp_#**
   ```Shell
   export DIRECT=0
   ```
-- **garage_l6_#**
+- **tfpp_l6_#**
   ```Shell
   export UNCERTAINTY_THRESHOLD=033
   ```
