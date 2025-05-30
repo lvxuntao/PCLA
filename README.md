@@ -77,7 +77,7 @@ PCLA includes 9 different autonomous agents and 17 distinct training seeds to ch
 - **Transfuser++**
   - Contains 4 different autonomous agents of Transfuser++ with 3 training seeds for each agent. To use these agents you need to set some [Environment Variables](#environment-variables).
     - **tfpp_l6_#** : Best performing Transfuser++ agent. Second place at <a href="https://leaderboard.carla.org/leaderboard/">CARLA Leaderboard 2</a> SENSORS track(Tuebingen_AI team)
-    - **tfpp_lav_#** : Transfuser++ but it's not trained on Town02 on Town05.
+    - **tfpp_lav_#** : Transfuser++ but it's not trained on Town02 and Town05.
     - **tfpp_wp_#** : Transfuser++ WP from their paper's appendix.
     - **tfpp_aim_#** : Reproduction of the <a href="https://openaccess.thecvf.com/content/CVPR2021/html/Prakash_Multi-Modal_Fusion_Transformer_for_End-to-End_Autonomous_Driving_CVPR_2021_paper.html" target="_blank">AIM </a>method, explained in their paper's appendix.
 
