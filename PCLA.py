@@ -32,14 +32,14 @@ def print_guide():
           https://github.com/MasoudJTehrani/PCLA
 
           env variables (remember to unset these variables before using another agent):
-            garage_lav_#:
-                export STOP_CONTROL=1
-            garage_aim_#:
-                export DIRECT=0
-            garage_ld_#:
-                export DIRECT=0
-            garage_l6_#:
+            tfpp_l6_#:
                 export UNCERTAINTY_THRESHOLD=033
+            tfpp_lav_#:
+                export STOP_CONTROL=1
+            tfpp_aim_#:
+                export DIRECT=0
+            tfpp_wp_#:
+                export DIRECT=0
             if_if:
                 export ROUTES=path_to_route.xml
           -------------------------------
