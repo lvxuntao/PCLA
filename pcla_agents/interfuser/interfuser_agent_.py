@@ -783,104 +783,6 @@ class InterfuserAgent(autonomous_agent.AutonomousAgent):
 
         return traffic_meta.astype(np.float32)
 
-
-    def get_front_vehicle_state(
-        self,
-        ego_vehicle,
-        max_distance=200.0,
-        max_lateral_offset=2.5,
-    ):
-        """
-        Find the nearest vehicle ahead of ego in approximately the same lane.
-
-        Returns
-        -------
-        front_distance:
-            Longitudinal center-to-center distance in meters.
-
-        front_speed:
-            Front-vehicle velocity projected onto ego's forward direction,
-            in m/s.
-
-        front_actor_id:
-            CARLA actor ID of the selected front vehicle, or None when no
-            front vehicle is found.
-        """
-        world = ego_vehicle.get_world()
-
-        ego_transform = ego_vehicle.get_transform()
-        ego_location = ego_transform.location
-        ego_forward = ego_transform.get_forward_vector()
-        ego_right = ego_transform.get_right_vector()
-
-        nearest_distance = None
-        nearest_speed = None
-        nearest_actor_id = None
-
-        for actor in world.get_actors().filter("vehicle.*"):
-            if actor.id == ego_vehicle.id or not actor.is_alive:
-                continue
-
-            actor_location = actor.get_location()
-
-            dx = actor_location.x - ego_location.x
-            dy = actor_location.y - ego_location.y
-            dz = actor_location.z - ego_location.z
-
-            longitudinal_distance = (
-                dx * ego_forward.x
-                + dy * ego_forward.y
-                + dz * ego_forward.z
-            )
-
-            lateral_offset = (
-                dx * ego_right.x
-                + dy * ego_right.y
-                + dz * ego_right.z
-            )
-
-            # Ignore vehicles behind ego, vehicles too far away, and vehicles
-            # that are probably in another lane.
-            if longitudinal_distance <= 0.0:
-                continue
-
-            if longitudinal_distance > max_distance:
-                continue
-
-            if abs(lateral_offset) > max_lateral_offset:
-                continue
-
-            if (
-                nearest_distance is None
-                or longitudinal_distance < nearest_distance
-            ):
-                actor_velocity = actor.get_velocity()
-
-                projected_front_speed = (
-                    actor_velocity.x * ego_forward.x
-                    + actor_velocity.y * ego_forward.y
-                    + actor_velocity.z * ego_forward.z
-                )
-
-                nearest_distance = longitudinal_distance
-                nearest_speed = max(0.0, projected_front_speed)
-                nearest_actor_id = actor.id
-
-        if nearest_distance is None:
-            # No front vehicle: use a very large distance and zero relative
-            # speed, so the UPPAAL distance abstraction does not create a
-            # false obstacle.
-            ego_velocity = ego_vehicle.get_velocity()
-            ego_longitudinal_speed = (
-                ego_velocity.x * ego_forward.x
-                + ego_velocity.y * ego_forward.y
-                + ego_velocity.z * ego_forward.z
-            )
-
-            return 1000.0, max(0.0, ego_longitudinal_speed), None
-
-        return nearest_distance, nearest_speed, nearest_actor_id
-
     @torch.no_grad()
     def run_step(self, input_data, timestamp, vehicle=None):
         if not self.initialized:
@@ -920,25 +822,6 @@ class InterfuserAgent(autonomous_agent.AutonomousAgent):
         tick_data["raw"] = traffic_meta
         tick_data["bev_feature"] = None
 
-        # Ground-truth front-vehicle state required by the UPPAAL d0/d05/d1
-        # calculation in interfuser_controller.py.
-        front_distance, front_speed, front_actor_id = (
-            self.get_front_vehicle_state(ego_vehicle)
-        )
-
-        if os.environ.get("DEBUG_UPPAAL_FRONT_STATE", "0") == "1":
-            print(
-                "[UPPAAL front state] "
-                "ego_speed=%.3f m/s, front_distance=%.3f m, "
-                "front_speed=%.3f m/s, front_actor_id=%s"
-                % (
-                    velocity,
-                    front_distance,
-                    front_speed,
-                    str(front_actor_id),
-                )
-            )
-
         steer, throttle, brake, meta_infos = self.controller.run_step(
             velocity,
             pred_waypoints,
@@ -946,8 +829,6 @@ class InterfuserAgent(autonomous_agent.AutonomousAgent):
             traffic_light_state,
             stop_sign,
             self.traffic_meta_moving_avg,
-            front_distance=front_distance,
-            front_speed=front_speed,
         )
 
         if brake < 0.05:
@@ -1003,13 +884,11 @@ class InterfuserAgent(autonomous_agent.AutonomousAgent):
         map_t2 = cv2.resize(map_t2, (200, 200))
 
 
-        # if self.step % 2 != 0 and self.step > 4:
-        #     control = self.prev_control
-        # else:
-        #     self.prev_control = control
-        #     self.prev_surround_map = surround_map
-        self.prev_control = control
-        self.prev_surround_map = surround_map
+        if self.step % 2 != 0 and self.step > 4:
+            control = self.prev_control
+        else:
+            self.prev_control = control
+            self.prev_surround_map = surround_map
 
         tick_data["map"] = self.prev_surround_map
         tick_data["map_t1"] = map_t1
