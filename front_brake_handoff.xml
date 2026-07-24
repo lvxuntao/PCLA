@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<scenarios>
+  <scenario name="FrontBrakeHandoff_1" type="FrontBrakeHandoff" town="Town02">
+    <ego_vehicle
+      model="vehicle.tesla.model3"
+      rolename="hero"
+      x="1.540000"
+      y="109.399994"
+      z="1.000000"
+      yaw="-0.000183"
+      pitch="0.000000"
+      roll="0.000000" />
+  </scenario>
+</scenarios>

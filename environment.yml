@@ -41,7 +41,7 @@ dependencies:
       - braceexpand==0.1.7
       - build==1.2.2.post1
       - cachetools==7.1.4
-      - carla==0.9.16
+      - carla==0.9.15
       - catalogue==2.0.10
       - certifi==2024.2.2
       - cffi==1.16.0

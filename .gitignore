@@ -11,3 +11,8 @@ env/
 .ipynb_checkpoints/
 pcla_agents/pretrained.zip
 .vscode
+*.bak_*
+*.bak
+minimum_safe_distance_logs/
+__pycache__/
+*.pyc
