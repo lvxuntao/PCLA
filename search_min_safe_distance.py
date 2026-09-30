@@ -352,7 +352,7 @@ def main():
     parser.add_argument(
         "--initial-gap-margin",
         type=float,
-        default=30.0,
+        default=60.0,
         help="Actual initial gap = max(initial_gap, trigger_gap + margin)."
     )
 

@@ -1,6 +1,12 @@
 import numpy as np
 from collections import deque
-from render import render, render_self_car, find_peak_box
+from render import (
+    render,
+    render_self_car,
+    find_peak_box,
+    estimate_actor_yaw_rates,
+)
+
 
 class PIDController(object):
     def __init__(self, K_P=1.0, K_I=0.0, K_D=0.0, n=20):
@@ -26,6 +32,7 @@ class PIDController(object):
 
         return self._K_P * error + self._K_I * integral + self._K_D * derivative
 
+
 def downsample_waypoints(waypoints, precision=0.2):
     """
     waypoints: [float lits], 10 * 2, m
@@ -45,6 +52,7 @@ def downsample_waypoints(waypoints, precision=0.2):
         last_waypoint = now_waypoint
     return downsampled_waypoints
 
+
 def collision_detections(map1, map2, threshold=0.04):
     """
     map1: rendered surround vehicles
@@ -59,8 +67,20 @@ def collision_detections(map1, map2, threshold=0.04):
     else:
         return False
 
-def get_max_safe_distance(meta_data, downsampled_waypoints, t, collision_buffer, threshold):
-    surround_map = render(meta_data.reshape(20, 20, 7), t=t)[0][:100, 40:140]
+
+def get_max_safe_distance(
+    meta_data,
+    downsampled_waypoints,
+    t,
+    collision_buffer,
+    threshold,
+    yaw_rate_map=None,
+):
+    surround_map = render(
+        meta_data.reshape(20, 20, 7),
+        t=t,
+        yaw_rate_map=yaw_rate_map,
+    )[0][:100, 40:140]
     if np.sum(surround_map) < 1:
         return np.linalg.norm(downsampled_waypoints[-3])
     # need to render self-car map
@@ -77,6 +97,7 @@ def get_max_safe_distance(meta_data, downsampled_waypoints, t, collision_buffer,
             break
         safe_distance = max(safe_distance, np.linalg.norm(loc))
     return safe_distance
+
 
 class InterfuserController(object):
     def __init__(self, config):
@@ -103,6 +124,13 @@ class InterfuserController(object):
             0  # If this is 3 here, it means in 3m, stop sign will not take effect again
         )
         self.stop_sign_trigger_times = 0
+
+        # Previous controller frame's detected actors.
+        self.previous_actor_states = None
+
+        # Use 0.10 instead when this controller is only called every other
+        # 0.05-second CARLA frame.
+        self.yaw_history_dt = getattr(config, "yaw_history_dt", 0.05)
 
     def run_step(
         self, speed, waypoints, junction, traffic_light_state, stop_sign, meta_data
@@ -162,12 +190,23 @@ class InterfuserController(object):
         brake = False
         # get desired speed
         downsampled_waypoints = downsample_waypoints(waypoints)
+
+        # Estimate yaw rate once per controller frame, then reuse it for all
+        # future horizons t = 0, 0.5, 0.75, 1, 1.5, 2.
+        yaw_rate_map, current_actor_states = estimate_actor_yaw_rates(
+            meta_data.reshape(20, 20, 7),
+            previous_actor_states=self.previous_actor_states,
+            dt=self.yaw_history_dt,
+        )
+        self.previous_actor_states = current_actor_states
+
         d_0 = get_max_safe_distance(
             meta_data,
             downsampled_waypoints,
             t=0,
             collision_buffer=self.collision_buffer,
             threshold=self.detect_threshold,
+            yaw_rate_map=yaw_rate_map,
         )
         d_05 = get_max_safe_distance(
             meta_data,
@@ -175,6 +214,7 @@ class InterfuserController(object):
             t=0.5,
             collision_buffer=self.collision_buffer,
             threshold=self.detect_threshold,
+            yaw_rate_map=yaw_rate_map,
         )
         d_075 = get_max_safe_distance(
             meta_data,
@@ -182,6 +222,7 @@ class InterfuserController(object):
             t=0.75,
             collision_buffer=self.collision_buffer,
             threshold=self.detect_threshold,
+            yaw_rate_map=yaw_rate_map,
         )
         d_1 = get_max_safe_distance(
             meta_data,
@@ -189,6 +230,7 @@ class InterfuserController(object):
             t=1,
             collision_buffer=self.collision_buffer,
             threshold=self.detect_threshold,
+            yaw_rate_map=yaw_rate_map,
         )
         d_15 = get_max_safe_distance(
             meta_data,
@@ -196,6 +238,7 @@ class InterfuserController(object):
             t=1.5,
             collision_buffer=self.collision_buffer,
             threshold=self.detect_threshold,
+            yaw_rate_map=yaw_rate_map,
         )
         d_2 = get_max_safe_distance(
             meta_data,
@@ -203,6 +246,7 @@ class InterfuserController(object):
             t=2,
             collision_buffer=self.collision_buffer,
             threshold=self.detect_threshold,
+            yaw_rate_map=yaw_rate_map,
         )
 
         d_05 = min(d_0, d_05, d_075)
@@ -237,14 +281,14 @@ class InterfuserController(object):
         if speed > desired_speed * self.config.brake_ratio:
             brake = True
 
-        '''
+        """
         meta_info_1 = "d0:%.1f, d05:%.1f, d1:%.1f, desired_speed:%.2f" % (
             d_0,
             d_05,
             d_1,
             desired_speed,
         )
-        '''
+        """
         meta_info_1 = "speed: %.2f, target_speed: %.2f" % (
             speed,
             desired_speed,

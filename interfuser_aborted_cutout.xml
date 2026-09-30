@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<scenarios>
+  <scenario name="InterfuserAbortedCutOut_1"
+            type="InterfuserAbortedCutOut"
+            town="Town06">
+    <ego_vehicle
+        x="397.32"
+        y="-24.38"
+        z="0.5"
+        yaw="179.8"
+        model="vehicle.tesla.model3"
+        rolename="hero" />
+  </scenario>
+</scenarios>

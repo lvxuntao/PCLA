@@ -19,7 +19,7 @@ class GlobalConfig:
     brake_ratio = 1.1  # ratio of speed to desired speed at which brake is triggered
     clip_delta = 0.35  # maximum change in speed input to logitudinal controller
 
-    max_speed = 10.000000
+    max_speed = 10.0
     collision_buffer = [2.5, 1.2]
 
     # Get the directory of the current file (interfuser_config.py)
