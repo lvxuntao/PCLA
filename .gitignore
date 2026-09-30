@@ -16,3 +16,4 @@ pcla_agents/pretrained.zip
 minimum_safe_distance_logs/
 __pycache__/
 *.pyc
+test/
